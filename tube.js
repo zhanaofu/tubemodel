@@ -12,7 +12,7 @@ let width_cm = 21; // width of drawing area in cm
 let height_cm = 4;
 let margin = 50; // margin in pixel
 
-let k = 3; // initial number of sections
+let k = 4; // initial number of sections
 let l = [0,7,11,13,14]; // initial section boundaries
 let w = [0.1,0.5,0.1,0.5,2,5]; // initial section radius
 
