@@ -5,7 +5,7 @@ Copyright (c) 2020 Zhanao Fu
 
 let sf = 44100; // sampling frequency
 let len = 0.5 * sf; // length of audio in samples
-let t0 = 0.3; // ratio of close period in a glottal pulse
+let t0 = 0.3; // ratio of closure period in a glottal pulse
 let alpha = 0.97; // lip radiation
 let c = 34000; // sound speed
 let d = 1;
@@ -37,6 +37,8 @@ function mt (a, b) {
 }
 
 function transfer (k, w, l) {
+    w[0] = document.getElementById("glottis").value; 
+    w[w.length-1] = document.getElementById("lips").value; 
     r = []
     sg = []
     coef =[]
@@ -119,8 +121,9 @@ function axxx(c,h=200,w=520,m=30,f=[],wav=[]){
     context.strokeStyle = 'black';
     context.lineWidth = 2;
 
-    context.fillText('0 s', 5, h-5);
-    context.fillText('0.5 s', w-m-5, h-5);
+    context.textAlign="center"
+    context.fillText('0 s', m, h-5);
+    context.fillText('0.5 s', w-m, h-5);
 
     context.beginPath();
     context.moveTo(m,2*m);
@@ -141,15 +144,17 @@ function axxx(c,h=200,w=520,m=30,f=[],wav=[]){
     }
     context.stroke();
     } else {
-    st = (h-3*m)/(f.length)
+    st = (h-3*m)/(f.length-1)
 
     context.beginPath();
     context.moveTo(m,h-m)
     context.stroke();
 
-    context.fillText('kHz', 5, m);
+    context.textBaseline = 'middle';
+    context.textAlign ='right'
+    context.fillText('kHz', m, m);
     for (i = 0; i<f.length; i++) {
-        context.fillText(f[i], 5, h-m-(1+i)*st);
+        context.fillText(f[i], m-10, h-m-(i)*st);
     }
 
     gram(wav,context,m,h-m,w-2*m,h-3*m)
@@ -164,11 +169,11 @@ function gram(wav,con,x,y,ww,hh) {
 
     k6 = 6000/freqs
 
-    hs = Math.floor(hh/k6)+0.5
+    hs = hh/k6
 
     ss = Math.floor((len-samps)/ww)
 
-    mm = Math.floor(samps/len*ww/2)
+    mm = samps/len*ww/2
 
     sca = chroma.scale(['white','yellow','red','black']).domain([0,0.001,0.01,0.2])
   
@@ -176,8 +181,6 @@ function gram(wav,con,x,y,ww,hh) {
         dft.forward(wav.slice(i*ss+samps/2,i*ss+samps*1.5))
         spectrum = dft.spectrum;
         for (j=0;j<k6+1;j++){
-            //dk=Math.floor((1-spectrum[j+1])*256)
-            //con.fillStyle = `rgb(${dk},${dk},${dk})`
             con.fillStyle =  sca(spectrum[j+1]).hex()
             con.fillRect(x+i+mm, y-(j+1)*hs-1, 1, hs);  
         }
@@ -186,6 +189,7 @@ function gram(wav,con,x,y,ww,hh) {
 }
 
 function gen(a,t0) {
+    t0 = document.getElementById("t0").value;
     f0 = document.getElementById("f0").value; //f0
     phs = 0; // phase including silence
     acp = 0; // phase exluding silence
@@ -203,7 +207,7 @@ function buttonA () {
     gen(sa1,t0);
     a2b(nd(sa1),b1)
     axxx('wa',200,520,30,[],sa1)
-    axxx('waa',400,520,30,[1,2,3,4,5,6],sa1)
+    axxx('waa',400,520,30,[0,1,2,3,4,5,6],sa1)
 }
 function buttonB () {
     gen(sa1,t0);
@@ -213,7 +217,7 @@ function buttonB () {
     radi(sa2,sa3, alpha, d);
     a2b(nd(sa3),b2)
     axxx('wb',200,520,30,[],sa2)
-    axxx('wbb',400,520,30,[1,2,3,4,5,6],sa2)
+    axxx('wbb',400,520,30,[0,1,2,3,4,5,6],sa2)
 }
 
 buttonA();

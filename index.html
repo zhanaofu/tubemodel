@@ -2,10 +2,10 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Tube model</title>
-        <meta name="description" content="Vocal tract simulation">
+        <title>Tube model vowel synthesizer</title>
+        <meta name="description" content="A vowel synthesizer of based on a simple tube model for the vocal tract">
         <meta name="author" content="Zhanao Fu">
-
+        <meta name="keywords" content="vowel, tube model, synthesizer">
 
         <script src="jquery-3.5.1.slim.min.js"></script>   
         <script src="algebrite.bundle-for-browser.js"></script>
@@ -20,38 +20,46 @@
 
     <body>
         
-    <h2>If it doesn't work please try another brower. Chrome works!</h2>
+    <h1>Tube model vowel synthesizer</h1>
+    <h2>Introduction</h2>
+    <p>This is a vowel synthesizer based on a simple tube model for the vocal tract. It features customizable settings for the number of tubes, the length and radius of each tube, the frequency and the closure period of vocal folds' vibration. If it doesn't work please try another browser. Chrome works!</p>
     <h2>How to use the model:</h2>
         <ol>
-            <li>the vocal fold model:
+            <li>The vocal tract model:
                 <ul>
-                    <li>Left click and drag the edges to adjust the size of a section (the location of the glottis is fixed at zero).</li>
+                    <li>Left click and drag the horizontal or vertical edges to adjust the shape of a section (the location of the glottis is fixed at zero).</li>
                     <li>Right click on a circle to remove a existing section boundary (the radius of the right section is kept).</li>
                     <li>Right click outside the circles to create a new section boundary.</li>
                 </ul>
             </li> 
-            <li>Input the fundamental frequency (the frequency of glottal impulses).</li>
-            <li>Click the buttons below to compute and play the sounds. The computation will take a while.</li>
+            <li>Adjust the fundamental frequency (the frequency of glottal impulses), and optionally, the radiuses for the tube before the glottis and the hypothetical tube after the lips.</li>
+            <li>Click the buttons below to compute and play the sounds, and generate the waveforms and the spectrograms for the sounds. The computation might take a while.</li>
         </ol>
      
     <h2>Some details about this model</h2>
     
-    <p>The glottal source is generated with a polynomial model from Rosenberg (1971). It is assumed that the tubes are loseless, and no air is going back through the mouth or the glottis.</p>
+    <p>The glottal source is generated with a polynomial model from Rosenberg (1971). It is assumed that the tubes are loseless, and no air is going back through the mouth or the glottis. The transfer function of the filter is calculated with the <a href="http://algebrite.org">Algebrite</a> library. The FFT transforms are done with the <a href="https://github.com/corbanbrook/dsp.js/">DSP.js</a> library. The color scale for the spectrograms are generated with the <a href="https://vis4.net/chromajs/">chroma.js</a> library.</p>
 
     <p>Check out <a href="https://www.mq.edu.au/about/about-the-university/faculties-and-departments/medicine-and-health-sciences/departments-and-centres/department-of-linguistics/our-research/phonetics-and-phonology/speech/acoustics/acoustic-theory-of-speech-production">this short series of introductions to the acoustics of speech production</a> if you don't know what this is all about.</p>
 
-    <h2>References</h2>
-    <ul>
-        <li>Rosenberg, A. E. (1971). Effect of glottal pulse shape on the quality of natural vowels. <i>The Journal of the Acoustical Society of America, 49</i>(2B), 583-590.</li>
-        <li>Taylor, P. (2009). <i>Text-to-speech synthesis.</i> Cambridge university press.</li>
-    </ul>
     <hr>
 
-    <canvas id="canvas" style="border:0px solid;" oncontextmenu="return false;"></canvas>
-
+    <canvas id="canvas" style="border:0px solid;" oncontextmenu="return false;"></canvas> 
     <form>
-        <label>Fundamental frequency</label>
-        <input type="number" id="f0" value="220">
+        <label>Ratio of the closure period in each cyle of vocal folds vibration</label>
+        <input type="number" id="t0" value="0.3" style="width: 150px;">
+    </form>
+    <form>
+        <label>Vocal folds vibration frequency</label>
+        <input type="number" id="f0" value="220" min="0" max="1" style="width: 150px;">
+    </form>
+    <form>
+        <label>Radius of the tube before the vocal folds</label>
+        <input type="number" id="glottis" value="0.1" min="0.0000000001" style="width: 150px;">
+    </form>
+    <form>
+        <label>Radius of the tube after the lips</label>
+        <input type="number" id="lips" value="5"  min="2" style="width: 150px;">
     </form>
     <hr>
 
@@ -80,11 +88,15 @@
 
     </div>
     <div class="other">
+    <hr>
+    <h2>References</h2>
+    <ul>
+        <li>Rosenberg, A. E. (1971). Effect of glottal pulse shape on the quality of natural vowels. <i>The Journal of the Acoustical Society of America, 49</i>(2B), 583-590.</li>
+        <li>Taylor, P. (2009). <i>Text-to-speech synthesis.</i> Cambridge University Press.</li>
+    </ul>
         <hr>
-        <p>Zhanao Fu 2020</p>
+        <p>The MIT License (MIT)</br>Copyright (c) 2020 Zhanao Fu</p>
     </div>
-
-
 
     </body>
 
