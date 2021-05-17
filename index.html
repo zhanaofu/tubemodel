@@ -6,8 +6,8 @@
         <meta name="description" content="A vowel synthesizer of based on a simple tube model for the vocal tract">
         <meta name="author" content="Zhanao Fu">
         <meta name="keywords" content="vowel, tube model, synthesizer">
-
-        <script src="jquery-3.5.1.slim.min.js"></script>   
+        <meta name="google-site-verification" content="tIWLVVwPIZaHWTj2dM0MxGm39hfySMztKbm7eMHvHnE" />
+        <script src="jquery-3.5.1.slim.min.js"></script>
         <script src="algebrite.bundle-for-browser.js"></script>
         <script src="dsp.js"></script>
         <script src="chroma.js"></script>
@@ -19,7 +19,7 @@
     </style>
 
     <body>
-        
+
     <h1>Tube model vowel synthesizer</h1>
     <h2>Introduction</h2>
     <p>This is a vowel synthesizer based on a simple tube model for the vocal tract. It features customizable settings for the number of tubes, the length and radius of each tube, the frequency and the closure period of vocal folds' vibration. You can also try a more realistic online interactive dynamic model <a href="https://dood.al/pinktrombone/">Pink Trombone</a> by Neil Thapen.</p>
@@ -31,20 +31,20 @@
                     <li>Right click on a circle to remove a existing section boundary (the radius of the right section is kept).</li>
                     <li>Right click outside the circles to create a new section boundary.</li>
                 </ul>
-            </li> 
+            </li>
             <li>Adjust the fundamental frequency (the frequency of glottal impulses), and optionally, the radiuses for the tube before the glottis and the hypothetical tube after the lips.</li>
             <li>Click the buttons below to compute and play the sounds, and generate the waveforms and the spectrograms for the sounds. The computation might take a while.</li>
         </ol>
-     
+
     <h2>Some details about this model</h2>
-    
+
     <p>The glottal source is generated with a polynomial model from Rosenberg (1971). It is assumed that the tubes are loseless, and no air is going back through the mouth or the glottis. The transfer function of the filter is calculated with the <a href="http://algebrite.org">Algebrite</a> library. The FFTs are done with the <a href="https://github.com/corbanbrook/dsp.js/">DSP.js</a> library. The color scale for the spectrograms is generated with the <a href="https://vis4.net/chromajs/">chroma.js</a> library. The github repository for this synthesizer is <a href="https://github.com/zhanaofu/tubemodel">here</a>.</p>
 
     <p>Check out <a href="https://www.mq.edu.au/about/about-the-university/faculties-and-departments/medicine-and-health-sciences/departments-and-centres/department-of-linguistics/our-research/phonetics-and-phonology/speech/acoustics/acoustic-theory-of-speech-production">this short series of introductions to the acoustics of speech production</a> if you don't know what this is all about.</p>
 
     <hr>
 
-    <canvas id="canvas" style="border:0px solid;" oncontextmenu="return false;"></canvas> 
+    <canvas id="canvas" style="border:0px solid;" oncontextmenu="return false;"></canvas>
     <form>
         <label>Ratio of the closure period in each cyle of vocal folds vibration</label>
         <input type="number" id="t0" value="0.3" style="width: 150px;">
