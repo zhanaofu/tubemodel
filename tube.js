@@ -7,17 +7,18 @@ let canvas = document.getElementById('canvas');
 let context = canvas.getContext('2d');
 
 
-let ppc = 60; // pixel per cm
+let ppc = 50; // pixel per cm
 let width_cm = 21; // width of drawing area in cm
 let height_cm = 4;
-let margin = 50; // margin in pixel
+let margin = screen.width/2-ppc/2*width_cm; // margin in pixel
+let marginv = 50;
 
 let k = 4; // initial number of sections
 let l = [0,7,11,13,14]; // initial section boundaries
 let w = [0.1,0.5,0.1,0.5,2,5]; // initial section radius
 
 
-let mousepress = 0; // initial mouse button/location 
+let mousepress = 0; // initial mouse button/location
 let x = 0; // mouse location
 let y = 0;
 let xdown = 0; // mouse location when a button is pressed
@@ -28,13 +29,13 @@ let cl = canvas.getBoundingClientRect();
 function axes() {
     // set up canvas
     canvas.width = ppc * width_cm + 2 * margin;
-    canvas.height = ppc * height_cm + 2 * margin;
+    canvas.height = ppc * height_cm + 2 * marginv;
 
     context.font = "25px Times";
-    context.fillText('Unit:cm', 20, 25);
+    context.fillText('Unit:cm', margin, 25);
 
-    context.fillText('Glottis', margin, canvas.height - margin + 20);
-    context.fillText('Lips', canvas.width-margin-40, canvas.height - margin + 20);
+    context.fillText('Glottis', margin, canvas.height - marginv + 20);
+    context.fillText('Lips', canvas.width-margin-40, canvas.height - marginv + 20);
 
     context.strokeStyle = '#E0E0E0';
     context.lineWidth = 1;
@@ -45,7 +46,7 @@ function axes() {
 
     // y-axis
     for (i = 0; i <= Math.floor(height_cm/2); i++){
-        
+
         if (i == 0) {
             context.fillText(i, margin-10, canvas.height/2)
         } else {
@@ -66,21 +67,21 @@ function axes() {
 
     // x-axis
     for (i = 0; i <= Math.floor(width_cm); i++){
-        
+
         if (i != 0) {
         context.fillText(i-1, margin+i*ppc-2, canvas.height/2 +15);
 
         context.beginPath();
-        context.moveTo(margin+i*ppc,canvas.height-margin);
-        context.lineTo(margin+i*ppc,margin);
+        context.moveTo(margin+i*ppc,canvas.height-marginv);
+        context.lineTo(margin+i*ppc,marginv);
         context.stroke();
         }
     }
 
     // axes
     context.beginPath();
-    context.moveTo(margin,margin);
-    context.lineTo(margin,canvas.height-margin);
+    context.moveTo(margin,marginv);
+    context.lineTo(margin,canvas.height-marginv);
     context.strokeStyle = 'black';
     context.lineWidth = 2;
     context.stroke();
@@ -97,7 +98,7 @@ function axes() {
 
     //lips
     context.lineWidth = 5;
-    context.strokeStyle = 'red'; 
+    context.strokeStyle = 'red';
 
     context.beginPath();
     context.moveTo(l[k]*ppc+margin+ppc,canvas.height/2+w[k]*ppc);
@@ -127,7 +128,7 @@ function draw(k=2,l=[0,15,17,],w=[0,0.5,0.7,]){
     for (i=1; i<k+1; i++){
 
         context.lineWidth = 5;
-        context.strokeStyle = 'red';    
+        context.strokeStyle = 'red';
 
         context.beginPath();
         context.moveTo(l[i-1]*ppc+margin+ppc,canvas.height/2+w[i-1]*ppc);
@@ -143,7 +144,7 @@ function draw(k=2,l=[0,15,17,],w=[0,0.5,0.7,]){
         context.moveTo(l[i-1]*ppc+margin+ppc,canvas.height/2-w[i]*ppc);
         context.lineTo(l[i]*ppc+margin+ppc,canvas.height/2-w[i]*ppc);
         context.stroke();
-        
+
         context.beginPath();
         context.moveTo(l[i-1]*ppc+margin+ppc,canvas.height/2+w[i]*ppc);
         context.lineTo(l[i]*ppc+margin+ppc,canvas.height/2+w[i]*ppc);
@@ -151,7 +152,7 @@ function draw(k=2,l=[0,15,17,],w=[0,0.5,0.7,]){
 
         context.lineWidth = 2;
         context.strokeStyle = 'black';
-    
+
         context.beginPath();
         context.arc(l[i]*ppc+margin+ppc, canvas.height/2-w[i]*ppc, 6, 0, 2 * Math.PI);
         context.stroke();
@@ -160,7 +161,7 @@ function draw(k=2,l=[0,15,17,],w=[0,0.5,0.7,]){
         context.arc(l[i]*ppc+margin+ppc, canvas.height/2+w[i]*ppc, 6, 0, 2 * Math.PI);
         context.stroke();
     }
-    } 
+    }
 
 function mousepos(e){
     cl = canvas.getBoundingClientRect();
@@ -169,13 +170,13 @@ function mousepos(e){
 
 }
 
-function update(e){  
+function update(e){
     mousepress = e.which;
     mousepos(e);
 
     xdown = x;
     ydown = y;
-    
+
     for (i=0;i<=k;i++){
         if (xdown > l[i]*ppc+margin+ppc-6){
             li = i;

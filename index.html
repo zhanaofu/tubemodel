@@ -14,15 +14,38 @@
 
     </head>
     <style>
-        div.outputbox {width:530px;float: left;margin-right:10px}
-        div.other{clear: both;}
+        canvas {
+           border:0px solid;
+        }
+        .outputbox {
+          width:500px;
+          float: left;
+          margin-right:10px}
+        .box1{
+          clear: both;
+          margin-left: 10vw;
+          margin-right: 10vw;
+          border-radius: 10px;
+          background-color: white;
+          padding: 10px;
+          font-family: "Helvetica";
+          line-height: 1.2;
+        }
+        a{
+          color: black;
+        }
+        p, li{
+          color: #505050;
+          font-weight: 100;
+          margin: 17px 0;
+        }
     </style>
 
     <body>
-
+    <div class="box1">
     <h1>Tube model vowel synthesizer</h1>
     <h2>Introduction</h2>
-    <p>This is a vowel synthesizer based on a simple tube model for the vocal tract. It features customizable settings for the number of tubes, the length and radius of each tube, the frequency and the closure period of vocal folds' vibration. You can also try a more realistic online interactive dynamic model <a href="https://dood.al/pinktrombone/">Pink Trombone</a> by Neil Thapen.</p>
+    <p>This is a vowel synthesizer based on a simple tube model for the vocal tract. It's developed by <a href="https://zhanaofu.github.io">Zhanao Fu</a> for LIN228 Phonetics tutorials (Fall 2020). It features customizable settings for the number of tubes, the length and radius of each tube, the frequency and the closure period of vocal folds' vibration. You can also try a more realistic online interactive dynamic model <a href="https://dood.al/pinktrombone/">Pink Trombone</a> by Neil Thapen.</p>
     <h2>How to use the synthesizer:</h2>
         <ol>
             <li>The vocal tract model:
@@ -43,8 +66,10 @@
     <p>Check out <a href="https://www.mq.edu.au/about/about-the-university/faculties-and-departments/medicine-and-health-sciences/departments-and-centres/department-of-linguistics/our-research/phonetics-and-phonology/speech/acoustics/acoustic-theory-of-speech-production">this short series of introductions to the acoustics of speech production</a> if you don't know what this is all about.</p>
 
     <hr>
+  </div>
 
-    <canvas id="canvas" style="border:0px solid;" oncontextmenu="return false;"></canvas>
+    <canvas id="canvas" oncontextmenu="return false;"></canvas>
+    <div class="box1">
     <form>
         <label>Ratio of the closure period in each cyle of vocal folds vibration</label>
         <input type="number" id="t0" value="0.3" style="width: 150px;">
@@ -62,7 +87,8 @@
         <input type="number" id="lips" value="5"  min="2" style="width: 150px;">
     </form>
     <hr>
-
+  </div>
+  <div class="box1">
     <div class="outputbox">
     <button type="button" onclick="buttonA()">
     <span>Synthesize the glottal source</span>
@@ -72,7 +98,6 @@
     </button>
     <canvas id="wa" ></canvas>
     <canvas id="waa" class="u"></canvas>
-
     </div>
 
     <div class="outputbox">
@@ -83,11 +108,10 @@
             <span> Play the synthesized vowel</span>
         </button>
         <canvas id="wb" class="u"></canvas>
-
         <canvas id="wbb" class="u"></canvas>
-
     </div>
-    <div class="other">
+  </div>
+    <div class="box1">
     <hr>
     <h2>References</h2>
     <ul>
@@ -97,7 +121,6 @@
         <hr>
         <p>The MIT License (MIT)</br>Copyright (c) 2020 <a href="https://zhanaofu.github.io">Zhanao Fu</a></p>
     </div>
-
     </body>
 
     <script src='tube.js'></script>
