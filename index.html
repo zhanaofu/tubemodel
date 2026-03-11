@@ -2,45 +2,43 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Tube model vowel synthesizer</title>
-        <meta name="description" content="A vowel synthesizer of based on a simple tube model for the vocal tract">
+        <meta name="description" content="A vowel synthesizer based on a simple tube model for the vocal tract">
         <meta name="author" content="Zhanao Fu">
         <meta name="keywords" content="vowel, tube model, synthesizer">
         <meta name="google-site-verification" content="tIWLVVwPIZaHWTj2dM0MxGm39hfySMztKbm7eMHvHnE" />
         <meta name="baidu-site-verification" content="code-PtHTuSFthN" />
-        <script src="jquery-3.5.1.slim.min.js"></script>
-        <script src="algebrite.bundle-for-browser.js"></script>
         <script src="dsp.js"></script>
         <script src="chroma.js"></script>
-
+        <style>
+            canvas {
+               border:0px solid;
+            }
+            .outputbox {
+              width:500px;
+              float: left;
+              margin-right:10px}
+            .box1{
+              clear: both;
+              margin-left: 10vw;
+              margin-right: 10vw;
+              border-radius: 10px;
+              background-color: white;
+              padding: 10px;
+              font-family: "Helvetica";
+              line-height: 1.2;
+            }
+            a{
+              color: black;
+            }
+            p, li{
+              color: #505050;
+              font-weight: 100;
+              margin: 17px 0;
+            }
+        </style>
     </head>
-    <style>
-        canvas {
-           border:0px solid;
-        }
-        .outputbox {
-          width:500px;
-          float: left;
-          margin-right:10px}
-        .box1{
-          clear: both;
-          margin-left: 10vw;
-          margin-right: 10vw;
-          border-radius: 10px;
-          background-color: white;
-          padding: 10px;
-          font-family: "Helvetica";
-          line-height: 1.2;
-        }
-        a{
-          color: black;
-        }
-        p, li{
-          color: #505050;
-          font-weight: 100;
-          margin: 17px 0;
-        }
-    </style>
 
     <body>
     <div class="box1">
@@ -62,7 +60,7 @@
 
     <h2>Some details about this model</h2>
 
-    <p>The glottal source is generated with a polynomial model from Rosenberg (1971). It is assumed that the tubes are loseless, and no air is going back through the mouth or the glottis. The transfer function of the filter is calculated with the <a href="http://algebrite.org">Algebrite</a> library. The FFTs are done with the <a href="https://github.com/corbanbrook/dsp.js/">DSP.js</a> library. The color scale for the spectrograms is generated with the <a href="https://vis4.net/chromajs/">chroma.js</a> library. The github repository for this synthesizer is <a href="https://github.com/zhanaofu/tubemodel">here</a>.</p>
+    <p>The glottal source is generated with a polynomial model from Rosenberg (1971). No air is assumed to go back through the mouth or the glottis. The transfer function of the filter is calculated with numerical polynomial arithmetic. Tube wall losses are modelled by shifting the filter poles inward, giving each formant a bandwidth of approximately 60 Hz. The FFTs are done with the <a href="https://github.com/corbanbrook/dsp.js/">DSP.js</a> library. The color scale for the spectrograms is generated with the <a href="https://vis4.net/chromajs/">chroma.js</a> library. The github repository for this synthesizer is <a href="https://github.com/zhanaofu/tubemodel">here</a>.</p>
 
     <p>Check out <a href="https://www.mq.edu.au/about/about-the-university/faculties-and-departments/medicine-and-health-sciences/departments-and-centres/department-of-linguistics/our-research/phonetics-and-phonology/speech/acoustics/acoustic-theory-of-speech-production">this short series of introductions to the acoustics of speech production</a> if you don't know what this is all about.</p>
 
@@ -71,13 +69,21 @@
 
     <canvas id="canvas" oncontextmenu="return false;"></canvas>
     <div class="box1">
+    <h3 style="margin-top:0">Vowel presets</h3>
+    <p>Click a vowel to load its tube shape and play the synthesized sound:</p>
+    <button type="button" onclick="loadPreset('i')">/i/ &ldquo;see&rdquo;</button>
+    <button type="button" onclick="loadPreset('a')">/ɑ/ &ldquo;father&rdquo;</button>
+    <button type="button" onclick="loadPreset('o')">/o/ &ldquo;go&rdquo;</button>
+    <hr>
+  </div>
+    <div class="box1">
     <form>
         <label>Ratio of the closure period in each cyle of vocal folds vibration</label>
         <input type="number" id="t0" value="0.3" style="width: 150px;">
     </form>
     <form>
         <label>Vocal folds vibration frequency</label>
-        <input type="number" id="f0" value="220" min="0" max="1" style="width: 150px;">
+        <input type="number" id="f0" value="220" min="50" max="500" style="width: 150px;">
     </form>
     <form>
         <label>Radius of the tube before the vocal folds</label>
@@ -122,8 +128,8 @@
         <hr>
         <p>The MIT License (MIT)</br>Copyright (c) 2020 <a href="https://zhanaofu.github.io">Zhanao Fu</a></p>
     </div>
-    </body>
 
     <script src='tube.js'></script>
     <script src='sound.js'></script>
+    </body>
 </html>
